@@ -1,4 +1,4 @@
-package com.company;
+
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -15,7 +15,6 @@ public class Company {
     {
         this.companyName =Name;
         this.description =Description;
-        Double d=5.0;
     }
 
     public void setCompanyName(String companyName) {
@@ -37,33 +36,5 @@ public class Company {
     public String getDescription() {
         return description;
     }
-    public void addEmployee(String name, String surname, Date birthday, double salary, String companyName){
-        employeeList.add(new Employee(name,surname,birthday,salary,companyName));
-    }
-    public List<Employee> findAllEmployeesOrderedByName(){
-        List<Employee> a = this.getEmployeeList();
-        a.sort(new NameComparator());
-        return a;
 
-    }
-    public List<Employee> findAllEmployeesOrderedBySalary(){
-        List<Employee> a = this.getEmployeeList();
-        a.sort(new SalaryComparator());
-        return a;
-    }
-
-    class NameComparator implements Comparator<Employee>{
-        @Override
-        public int compare(Employee employee, Employee t1) {
-            return (employee.getName()+employee.getSurname()).compareTo((t1.getName()+t1.getSurname()));
-        }
-
-    }
-    class SalaryComparator implements Comparator<Employee>{
-        @Override
-        public int compare(Employee employee, Employee t1) {
-            return Double.compare(employee.getSalary(),t1.getSalary());
-        }
-
-    }
 }

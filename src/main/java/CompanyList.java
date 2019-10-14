@@ -1,11 +1,6 @@
-package com.company;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-public class CompanyList {
+public class CompanyList implements CompanyManager{
     private Map<String,Company> CompanyList=new HashMap<>();
 
     public void addCompany(String companyName, String description) {
@@ -20,5 +15,35 @@ public class CompanyList {
     }
     public List<Employee> employees(String company){
         return this.CompanyList.get(company).getEmployeeList();
+    }
+
+    public void addEmployee(String name, String surname, Date birthday, double salary, String companyName){
+        this.getCompanyList().get(companyName).getEmployeeList().add(new Employee(name,surname,birthday,salary,companyName));
+    }
+    public List<Employee> findAllEmployeesOrderedByName(String companyName){
+        List<Employee> a = this.getCompanyList().get(companyName).getEmployeeList();
+        a.sort(new NameComparator());
+        return a;
+
+    }
+    public List<Employee> findAllEmployeesOrderedBySalary(String companyName){
+        List<Employee> a = this.getCompanyList().get(companyName).getEmployeeList();
+        a.sort(new SalaryComparator());
+        return a;
+    }
+
+    class NameComparator implements Comparator<Employee>{
+        @Override
+        public int compare(Employee employee, Employee t1) {
+            return (employee.getName()+employee.getSurname()).compareTo((t1.getName()+t1.getSurname()));
+        }
+
+    }
+    class SalaryComparator implements Comparator<Employee>{
+        @Override
+        public int compare(Employee employee, Employee t1) {
+            return Double.compare(employee.getSalary(),t1.getSalary());
+        }
+
     }
 }
